@@ -1,0 +1,54 @@
+priority -50
+
+extends javascript
+
+snippet component "Component" b
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    moduleId: module.id,
+    selector: 'app-${1:selector}',
+    templateUrl: '${2:name}.component.html',
+	styleUrls: ['./${3:name}.component.css']
+})
+export class ${4:ComponentName}Component implements OnInit {
+    constructor() { }
+
+    ngOnInit() { }
+}
+endsnippet
+
+snippet service "Service" b
+import { Injectable } from '@angular/core';
+
+@Injectable()
+    export class ${1:ServiceName}Service {
+        constructor() { }
+    }
+}
+endsnippet
+
+snippet pipe "Pipe" b
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+    name: '${1:name}'
+})
+
+export class ${2:PipeName}Pipe implements PipeTransform {
+    transform(value: any, args: any[]): any {
+        ${3}
+    }
+}
+endsnippet
+
+snippet http-get "Http.get" b
+return this.http.get('${1:url}')
+    .map((res: Response) => res.json()${2});
+endsnippet
+
+snippet subsribe "Subscribe" b
+this.${1:service}.${2:function}
+    .subscribe(${3:arg} => this.${4:property} = ${5:arg});
+    ${6}
+endsnippet

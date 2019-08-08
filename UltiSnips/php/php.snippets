@@ -1,0 +1,250 @@
+priority -50
+
+global !p
+import vim
+
+# Set g:ultisnips_php_scalar_types to 1 if you'd like to enable PHP 7's scalar types for return values
+def isPHPScalarTypesEnabled():
+	isEnabled = vim.eval("get(g:, 'ultisnips_php_scalar_types', 0)") == "1"
+	return isEnabled or re.match('<\?php\s+declare\(strict_types=[01]\);', '\n'.join(vim.current.window.buffer))
+endglobal
+
+## Snippets from SnipMate, taken from
+## https://github.com/scrooloose/snipmate-snippets.git
+
+snippet get "PHP Class Getter" b
+/**
+ * Get $1
+ *
+ * @return ${2:string}
+ */
+public function get${1/\w+\s*/\u$0/}() : ${2/(null|mixed|number|resource)|(.*)/(?1::$2 )/}
+{
+    return $this->$1;
+}
+endsnippet
+
+snippet set "PHP Class Setter" b
+/**
+ * Set $1
+ *
+ * @param $2 $$1
+ *
+ * @return self
+ */
+public function set${1/\w+\s*/\u$0/}(${4:${2/(null|mixed|number|resource)|(.*)/(?1::$2 )/}}$$1) : self
+{
+    $this->$1 = $$1;
+
+    return $this;
+}
+endsnippet
+
+snippet gs "PHP Class Getter Setter" b
+/**
+ * Set $1
+ *
+ * @param $2 $$1
+ *
+ * @return self
+ */
+public function set${1/\w+\s*/\u$0/}(${4:${2/(null|mixed|number|resource)|(.*)/(?1::$2 )/}}$$1) : self
+{
+    $this->$1 = $$1;
+
+    return $this;
+}
+
+/**
+ * Get $1
+ *
+ * @return ${2:string}
+ */
+public function get${1/\w+\s*/\u$0/}() : ${2/(null|mixed|number|resource)|(.*)/(?1::$2 )/}
+{
+    return $this->$1;
+}
+endsnippet
+
+snippet pub "Public function" b
+/**
+ * ${3:{@inheritDoc}}
+ *
+ * @return ${4:void}
+ */
+public function ${1:name}($${2:param}) : $4
+{
+    ${VISUAL}${5:return null;}
+}
+$0
+endsnippet
+
+snippet pro "Protected function" b
+/**
+ * ${3:{@inheritDoc}}
+ *
+ * @return ${4:void}
+ */
+protected function ${1:name}($${2:param}) : $4
+{
+    ${VISUAL}${5:return null;}
+}
+$0
+endsnippet
+
+snippet pri "Private function" b
+/**
+ * ${3:{@inheritDoc}}
+ *
+ * @return ${4:void}
+ */
+private function ${1:name}($${2:param}) : $4
+{
+    ${VISUAL}${5:return null;}
+}
+$0
+endsnippet
+
+snippet pubs "Public static function" b
+/**
+ * ${3:{@inheritDoc}}
+ *
+ * @return ${4:void}
+ */
+public static function ${1:name}($${2:param}) : $4
+{
+    ${VISUAL}${5:return null;}
+}
+$0
+endsnippet
+
+snippet pros "Protected static function" b
+/**
+ * ${3:{@inheritDoc}}
+ *
+ * @return ${4:void}
+ */
+protected static function ${1:name}($${2:param}) : $4
+{
+    ${VISUAL}${5:return null;}
+}
+$0
+endsnippet
+
+snippet pris "Private static function" b
+/**
+ * ${3:{@inheritDoc}}
+ *
+ * @return ${4:void}
+ */
+private static function ${1:name}($${2:param}) : $4
+{
+    ${VISUAL}${5:return null;}
+}
+$0
+endsnippet
+
+snippet new "New class instance" b
+$${1:variableName} = new ${2:${1/\w+\s*/\u$0/}}($3);
+endsnippet
+
+snippet ns "namespace declaration" b
+namespace ${1:`!p
+relpath = os.path.relpath(path)
+m = re.search(r'[A-Z].+(?=/)', relpath)
+if m:
+	snip.rv = m.group().replace('/', '\\')
+`};
+endsnippet
+
+snippet class "Class declaration template" b
+<?php
+
+namespace $1;
+
+/**
+ * ${2:`!p snip.rv=snip.basename`} - Class
+ *
+ * @author ${3:`!v g:snips_author`}
+ */
+class $2
+{
+    $0
+}
+endsnippet
+
+snippet interface "Interface declaration template" b
+<?php
+
+namespace ${1:`!p
+relpath = os.path.relpath(path)
+m = re.search(r'[A-Z].+(?=/)', relpath)
+if m:
+	snip.rv = m.group().replace('/', '\\')
+`};
+
+/**
+ * ${1:`!p snip.rv=snip.basename`} - Interface
+ *
+ * @author ${2:`!v g:snips_author`}
+ */
+interface $1
+{
+	public function ${3:someFunction}();$4
+}
+endsnippet
+
+snippet trait "Trait declaration template" b
+<?php
+
+namespace $1;
+
+/**
+ * ${2:`!p snip.rv=snip.basename`} - Trait
+ *
+ * @author ${3:`!v g:snips_author`}
+ */
+trait $2
+{
+    $0
+}
+endsnippet
+
+snippet constr "__construct()" b
+/**
+ * {@inheritDoc}
+ *
+ * @param ${1:dependencies}
+ */
+public function __construct(${1:$dependencies})
+{${1/\$(\w+)(, )*/\n    $this->$1 = $$1;/g}
+}
+$0
+endsnippet
+
+# PHPUnit snippets
+snippet testcase "class XYZTest extends \PHPUnit_Framework_TestCase { ... }"
+<?php
+
+namespace `!p
+relpath = os.path.relpath(path)
+m = re.search(r'[A-Z].+(?=/)', relpath)
+if m:
+	snip.rv = m.group().replace('/', '\\')
+`;
+
+/**
+ * @author `!v g:snips_author`
+ */
+class `!p
+snip.rv = re.match(r'.*(?=\.)', fn).group()
+` extends \PHPUnit_Framework_TestCase
+{
+	public function test$1()
+	{
+		${0:${VISUAL}}
+	}
+}
+endsnippet
+
+# :vim:ft=snippets:

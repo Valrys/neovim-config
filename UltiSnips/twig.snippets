@@ -1,0 +1,75 @@
+priority -50
+
+extends html
+
+# Generic Tags
+snippet % "" bi
+{% $1 %}$2
+endsnippet
+
+snippet %% "" bi
+{% ${1:tag_name} %}
+	$2
+{% end$1 %}
+endsnippet
+
+# Template Tags
+snippet block "" bi
+{% block $1 %}
+	$2
+{% endblock $1 %}
+endsnippet
+
+snippet # "" bi
+{# ${1:comment} #}
+endsnippet
+
+snippet extends "" bi
+{% extends '${1:base.html}' %}
+endsnippet
+
+snippet for "" bi
+{% for $1 in $2 %}
+	$3
+{% endfor %}
+endsnippet
+
+snippet if "" bi
+{% if $1 %}
+	$2
+{% endif %}
+endsnippet
+
+snippet iif "" bi
+{% if $1 %}$2{% endif %}
+endsnippet
+
+snippet ielse "" bi
+{% else %}$1
+endsnippet
+
+snippet else "" bi
+{% else %}
+	$1
+endsnippet
+
+snippet ielif "" bi
+{% elif %}$1
+endsnippet
+
+snippet elif "" bi
+{% elif %}
+	$1
+endsnippet
+
+snippet include "" bi
+{% include '$1' %}
+endsnippet
+
+snippet now "" bi
+{{ 'now'|date('${1:Y-m-d H:i:s}') }}
+endsnippet
+
+snippet iblock "" bi
+{% block ${1:blockname} %}${VISUAL}{% endblock $1 %}
+endsnippet

@@ -1,0 +1,354 @@
+# sugguestion? report bugs?
+# go to https://github.com/chrisyue/vim-snippets/issues
+
+priority -50
+
+snippet controller "Symfony 4 controller" b
+<?php
+
+namespace $1;
+
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\\{RedirectResponse, Request, Response};
+
+/**
+ * `!p snip.rv = re.match(r'.*(?=\.)', fn).group()` - AbstractController
+ *
+ * @author `!v g:snips_author`
+ */
+class `!p
+snip.rv = re.match(r'.*(?=\.)', fn).group()
+` extends AbstractController
+{
+    /**
+     * @Route("list", name="$2.index")
+     */
+    public function index(Request $request) : Response
+    {
+        $0
+        return $this->render('$2/index.html.twig');
+    }
+
+    /**
+     * @Route("new", name="$2.new")
+     */
+    public function new(Request $request)
+    {
+        return $this->render('$2/new.html.twig');
+    }
+
+    /**
+     * @Route("edit", name="$2.edit")
+     */
+    public function edit(Request $request)
+    {
+        return $this->render('$2/edit.html.twig');
+    }
+
+    /**
+     * @Route("view", name="$2.view")
+     */
+    public function view(Request $request) : Response
+    {
+        return $this->render('$2/view.html.twig');
+    }
+
+    /**
+     * @Route("delete", name="$2.delete") : RedirectResponse
+     */
+    public function delete(Request $request)
+    {
+    }
+}
+endsnippet
+
+snippet action "Symfony 4 Controller action"
+/**
+* @Route("${1:route_name}", name="${2:route_name}.$1")
+*/
+public function $3(Request $request)
+{
+	$0
+}
+endsnippet
+
+snippet comm "Symfony 4 command" b
+<?php
+
+namespace $1;
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+/**
+ * @author `!v g:snips_author`
+ */
+class `!p
+snip.rv = re.match(r'.*(?=\.)', fn).group()
+` extends Command
+{
+    protected function configure() : void
+    {
+        $this
+            ->setName('$2')
+            ->setDescription('$3');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output) : void
+    {
+        $0
+    }
+}
+endsnippet
+
+snippet entity "Symfony 4 doctrine entity" b
+<?php
+
+namespace $1;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * `!p snip.rv = re.match(r'.*(?=\.)', fn).group()` - Entity
+ *
+ * @author `!v g:snips_author`
+ *
+ * @ORM\Entity(repositoryClass="$2")
+ * @ORM\Table(name="tbl_`!p
+tmp = re.match(r'.*(?=\.)', fn).group()
+tmp = re.sub(r'\B([A-Z])', r'_\1', tmp)
+snip.rv = tmp.lower()
+`")
+ */
+`!p
+m = re.search(r'Abstract', path)
+if m:
+	snip.rv = 'abstract '
+`class `!p
+snip.rv = re.match(r'.*(?=\.)', fn).group()
+`
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     * @ORM\Id
+     */
+    private $id;
+    $0
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId() : int
+    {
+        return $this->id;
+    }
+}
+endsnippet
+
+snippet form "Symfony 4 form type" b
+<?php
+
+namespace $1;
+
+use Symfony\Component\Form\\{AbstractType, FormBuilderInterface};
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+/**
+ * `!p snip.rv = re.match(r'.*(?=\.)', fn).group()` - Type
+ *
+ * @author `!v g:snips_author`
+ */
+class `!p
+snip.rv = re.match(r'.*(?=\.)', fn).group()
+` extends AbstractType
+{
+    /**
+	 * {@inheritDoc}
+	 */
+    public function buildForm(FormBuilderInterface $builder, array $options) : void
+    {
+        $builder
+            ->add('$2')
+        ;
+    }
+
+    /**
+	 * {@inheritDoc}
+	 */
+    public function setDefaultOptions(OptionsResolverInterface $resolver) : void
+    {
+        $resolver->setDefaults([
+            'data_class' => $1::class
+        ]);
+    }
+}
+endsnippet
+
+snippet usearray "Symfony 4 use Doctrine\..\ArrayCollection" b
+use Doctrine\Common\Collections\ArrayCollection;$1
+endsnippet
+
+snippet useassert "Symfony 4 use Symfony\..\Constraints as Assert" b
+use Symfony\Component\Validator\Constraints as Assert;$1
+endsnippet
+
+snippet usecache "Symfony 4 use Sensio\..\Cache" b
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;$1
+endsnippet
+
+snippet usecontroller "Symfony 4 use Symfony\..\Controller" b
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;$1
+endsnippet
+
+snippet useacontroller "Symfony 4 use Symfony\..\AbstractController" b
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;$1
+endsnippet
+
+snippet usefile "Symfony 4 use Symfony\..\UploadedFile" b
+use Symfony\Component\HttpFoundation\File\UploadedFile;$1
+endsnippet
+
+snippet usejresponse "Symfony 4 use Symfony\..\JsonResponse" b
+use Symfony\Component\HttpFoundation\JsonResponse;$1
+endsnippet
+
+snippet useorm "Symfony 4 use Doctrine\..\Mapping as ORM" b
+use Doctrine\ORM\Mapping as ORM;$1
+endsnippet
+
+snippet userequest "Symfony 4 use Symfony\..\Request" b
+use Symfony\Component\HttpFoundation\Request;$1
+endsnippet
+
+snippet useresponse "Symfony 4 use Symfony\..\Response" b
+use Symfony\Component\HttpFoundation\Response;$1
+endsnippet
+
+snippet useroute "Symfony 4 use Sensio\..\Route" b
+use Symfony\Component\Routing\Annotation\Route;$1
+endsnippet
+
+snippet usesecurity "Symfony 4 use Sensio\..\Security" b
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;$1
+endsnippet
+
+snippet dump ""
+dump($1);exit;
+endsnippet
+
+snippet em "Symfony 4 entity manager" b
+$em = $this->getDoctrine()->getManager();
+$1
+endsnippet
+
+snippet repo "Symfony 4 get repository"
+$this->getDoctrine()->getRepository($1::class)->$2;
+endsnippet
+
+snippet redirect "Symfony 4 get repository" b
+$this->redirectToRoute('$1'${2:, [
+    $3
+]});
+endsnippet
+
+snippet texttype "Symfony 4 TextType" b
+use Symfony\Component\Form\Extension\Core\Type\TextType;$1
+endsnippet
+
+snippet textareatype "Symfony 4 TextAreaType" b
+use Symfony\Component\Form\Extension\Core\Type\TextAreaType;$1
+endsnippet
+
+snippet emailtype "Symfony 4 EmailType" b
+use Symfony\Component\Form\Extension\Core\Type\EmailType;$1
+endsnippet
+
+snippet integertype "Symfony 4 IntegerType" b
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;$1
+endsnippet
+
+snippet moneytype "Symfony 4 MoneyType" b
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;$1
+endsnippet
+
+snippet numbertype "Symfony 4 NumberType" b
+use Symfony\Component\Form\Extension\Core\Type\NumberType;$1
+endsnippet
+
+snippet passwordtype "Symfony 4 PasswordType" b
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;$1
+endsnippet
+
+snippet numbertype "Symfony 4 NumberType" b
+use Symfony\Component\Form\Extension\Core\Type\NumberType;$1
+endsnippet
+
+snippet percenttype "Symfony 4 PercentType" b
+use Symfony\Component\Form\Extension\Core\Type\PercentType;$1
+endsnippet
+
+snippet searchtype "Symfony 4 SearchType" b
+use Symfony\Component\Form\Extension\Core\Type\SearchType;$1
+endsnippet
+
+snippet rangetype "Symfony 4 RangeType" b
+use Symfony\Component\Form\Extension\Core\Type\RangeType;$1
+endsnippet
+
+snippet choicetype "Symfony 4 ChoiceType" b
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;$1
+endsnippet
+
+snippet datetype "Symfony 4 DateType" b
+use Symfony\Component\Form\Extension\Core\Type\DateType;$1
+endsnippet
+
+snippet datetimetype "Symfony 4 DateTimeType" b
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;$1
+endsnippet
+
+snippet timetype "Symfony 4 TimeType" b
+use Symfony\Component\Form\Extension\Core\Type\TimeType;$1
+endsnippet
+
+snippet checkboxtype "Symfony 4 CheckboxType" b
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;$1
+endsnippet
+
+snippet filetype "Symfony 4 FileType" b
+use Symfony\Component\Form\Extension\Core\Type\FileType;$1
+endsnippet
+
+snippet radiotype "Symfony 4 RadioType" b
+use Symfony\Component\Form\Extension\Core\Type\RadioType;$1
+endsnippet
+
+snippet collectiontype "Symfony 4 CollectionType" b
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;$1
+endsnippet
+
+snippet repeatedtype "Symfony 4 RepeatedType" b
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;$1
+endsnippet
+
+snippet hiddentype "Symfony 4 HiddenType" b
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;$1
+endsnippet
+
+snippet buttontype "Symfony 4 ButtonType" b
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;$1
+endsnippet
+
+snippet resettype "Symfony 4 ResetType" b
+use Symfony\Component\Form\Extension\Core\Type\ResetType;$1
+endsnippet
+
+snippet formtype "Symfony 4 FormType" b
+use Symfony\Component\Form\Extension\Core\Type\FormType;$1
+endsnippet
